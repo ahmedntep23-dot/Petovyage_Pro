@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETvoyage-Pro Romania | Transport Animalier VIP</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0a0a0f',
+                            purple: '#7c3aed',
+                            lime: '#bef264',
+                            pink: '#ec4899',
+                            surface: '#18181b'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Effects that Tailwind doesn't cover seamlessly */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7c3aed;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bef264;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #bef264, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 5s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Image Masking */
+        .mask-image {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Reveal on Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Blob Backgrounds */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<script>
+function envoyerWhatsApp() {
+  let nom = document.getElementById("nom").value;
+  let message = document.getElementById("message").value;
+
+  let url = "https://wa.me/+14583432860?text="
+    + "Nom : " + encodeURIComponent(nom) + "%0A"
+    + "Message : " + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+</script>
+<script>
+function envoyerWhatsApp() {
+  let nom = document.getElementById("nom").value;
+  let email = document.getElementById("email").value;
+  let depart = document.getElementById("depart").value;
+  let arrivee = document.getElementById("arrivee").value;
+  let animal = document.getElementById("animal").value;
+
+  let message =
+    "🐾 DEMANDE DE DEVIS PETVOYAGE%0A%0A" +
+    "👤 Nom : " + encodeURIComponent(nom) + "%0A" +
+    "📧 Email : " + encodeURIComponent(email) + "%0A" +
+    "📍 Ville de départ : " + encodeURIComponent(depart) + "%0A" +
+    "🏁 Ville d’arrivée : " + encodeURIComponent(arrivee) + "%0A" +
+    "🐶 Type d’animal : " + encodeURIComponent(animal);
+
+  let url = "https://wa.me/+14583432860?text=" + message;
+  window.open(url, "_blank");
+}
+</script>
+<div id="google_translate_element" style="position:fixed; bottom:20px; right:20px; z-index:9999;"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: 'fr',
+      includedLanguages: 'ro',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
+    'google_translate_element'
+  );
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+<body class="antialiased selection:bg-brand-lime selection:text-brand-dark">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-lime to-brand-purple animate-pulse">
+            PETvoyage...
+        </div>
+    </div>
+
+    <!-- Mouse Follower (Hidden on mobile) -->
+    <div id="cursor" class="hidden md:block fixed w-8 h-8 rounded-full border border-brand-lime pointer-events-none z-50 transition-transform duration-100 mix-blend-difference"></div>
+    <div id="cursor-dot" class="hidden md:block fixed w-2 h-2 bg-brand-lime rounded-full pointer-events-none z-50 transition-transform duration-75"></div>
+
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-lime via-brand-purple to-brand-pink z-50 w-0" id="progress-bar"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 group cursor-pointer">
+                    <i data-lucide="paw-print" class="h-8 w-8 text-brand-lime group-hover:rotate-12 transition-transform"></i>
+                    <span class="font-display font-bold text-2xl tracking-tighter text-white">PET<span class="text-brand-purple">voyage</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-brand-lime transition-colors px-3 py-2 rounded-md text-sm font-medium">Accueil</a>
+                        <a href="#services" class="hover:text-brand-lime transition-colors px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                        <a href="#destination" class="hover:text-brand-lime transition-colors px-3 py-2 rounded-md text-sm font-medium">Destinations</a>
+                        <a href="#temoignages" class="hover:text-brand-lime transition-colors px-3 py-2 rounded-md text-sm font-medium">Avis</a>
+                        <a href="#contact" class="bg-brand-lime text-brand-dark hover:bg-white hover:scale-105 transition-all px-6 py-2 rounded-full font-bold text-sm">Réserver</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-brand-surface border-b border-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:text-brand-lime block px-3 py-2 rounded-md text-base font-medium">Accueil</a>
+                <a href="#services" class="text-gray-300 hover:text-brand-lime block px-3 py-2 rounded-md text-base font-medium">Services</a>
+                <a href="#destination" class="text-gray-300 hover:text-brand-lime block px-3 py-2 rounded-md text-base font-medium">Destinations</a>
+                <a href="#contact" class="text-brand-dark bg-brand-lime block px-3 py-2 rounded-md text-base font-bold mt-4 text-center">Réserver</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Blobs -->
+        <div class="blob bg-brand-purple w-96 h-96 top-0 left-0 mix-blend-screen animate-float"></div>
+        <div class="blob bg-brand-lime w-80 h-80 bottom-0 right-0 mix-blend-screen animate-float-delayed"></div>
+        <div class="blob bg-brand-pink w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mix-blend-overlay opacity-30"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Text Content -->
+            <div class="z-10 order-2 lg:order-1 reveal-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-lime/30 bg-brand-lime/10 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-brand-lime animate-pulse"></span>
+                    <span class="text-brand-lime text-xs font-bold tracking-widest uppercase">Départs Hebdomadaires vers la Roumanie</span>
+                </div>
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6">
+                    Voyage <span class="text-gradient">VIP</span><br>
+                    Pour vos <span class="italic font-light text-white/80">Compagnons</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl max-w-lg mb-8 leading-relaxed">
+                    Plus qu'un simple transport. Une expérience de première classe sécurisée, climatisée et suivie en temps réel entre la France et la Roumanie.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="group relative px-8 py-4 bg-brand-purple rounded-full overflow-hidden flex items-center justify-center gap-3">
+                        <div class="absolute inset-0 w-full h-full bg-brand-pink transition-all duration-300 ease-out transform translate-y-full group-hover:translate-y-0"></div>
+                        <span class="relative font-bold text-white z-10">Planifier le départ</span>
+                        <i data-lucide="arrow-right" class="relative w-5 h-5 text-white z-10 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#services" class="px-8 py-4 rounded-full border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center gap-3 text-white">
+                        <span>Nos Services</span>
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-12 flex items-center gap-8 border-t border-white/10 pt-8">
+                    <div>
+                        <p class="font-display text-3xl font-bold text-white">1.5k+</p>
+                        <p class="text-gray-500 text-sm">Animaux Transportés</p>
+                    </div>
+                    <div>
+                        <p class="font-display text-3xl font-bold text-white">100%</p>
+                        <p class="text-gray-500 text-sm">Sécurité Garantie</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image / Graphic -->
+            <div class="order-1 lg:order-2 relative z-10 reveal">
+                <div class="relative w-full aspect-square max-w-md mx-auto">
+                    <!-- Decorative Circles -->
+                    <div class="absolute inset-0 border border-white/10 rounded-full animate-spin-slow"></div>
+                    <div class="absolute inset-4 border border-dashed border-white/20 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+                    
+                    <!-- Main Image container -->
+                    <div class="absolute inset-8 rounded-full overflow-hidden border-4 border-white/5 shadow-2xl shadow-brand-purple/20 group">
+                        <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Chien heureux en voyage" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        
+                        <!-- Floating Card overlay -->
+                        <div class="absolute bottom-8 right-8 glass-card p-4 rounded-2xl flex items-center gap-3 animate-float">
+                            <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <i data-lucide="check" class="text-green-500 w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Statut</p>
+                                <p class="font-bold text-sm">Arrivé à Bucarest</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE DIVIDER -->
+    <div class="py-10 bg-brand-lime text-brand-dark overflow-hidden transform -rotate-1 border-y-4 border-brand-dark">
+        <div class="whitespace-nowrap animate-marquee flex gap-8 items-center font-display font-black text-4xl uppercase tracking-widest">
+            <span>CHIENS</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>CHATS</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>OISEAUX</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>ROUMANIE</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>FRANCE</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>BELGIQUE</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>CHIENS</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+            <span>CHATS</span> <i data-lucide="star" class="w-8 h-8 fill-brand-dark"></i>
+        </div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-24 relative bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Nos Services <span class="text-brand-purple">Premium</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Nous ne faisons pas que conduire. Nous prenons soin de chaque détail du voyage de votre animal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 reveal border-t-4 border-brand-lime">
+                    <div class="w-16 h-16 bg-brand-lime/10 rounded-2xl flex items-center justify-center mb-6 text-brand-lime group-hover:scale-110 transition-transform">
+                        <i data-lucide="truck" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">Transport Routier</h3>
+                    <p class="text-gray-400 mb-6">Véhicules agréés, climatisés avec cages spacieuses. Pauses régulières pour promenades et hydratation.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-lime"></i> Climatisation contrôlée</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-lime"></i> Cages XL disponibles</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 reveal border-t-4 border-brand-purple" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-brand-purple/10 rounded-2xl flex items-center justify-center mb-6 text-brand-purple group-hover:scale-110 transition-transform">
+                        <i data-lucide="file-check" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">Formalités Douanières</h3>
+                    <p class="text-gray-400 mb-6">Nous gérons la complexité administrative. Passeports, puces, vaccins antirabiques et certificats TRACES.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-purple"></i> Vérification Passeport</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-purple"></i> Enregistrement TRACES</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group hover:-translate-y-2 reveal border-t-4 border-brand-pink" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-brand-pink/10 rounded-2xl flex items-center justify-center mb-6 text-brand-pink group-hover:scale-110 transition-transform">
+                        <i data-lucide="heart-pulse" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-3">Soins Spéciaux</h3>
+                    <p class="text-gray-400 mb-6">Votre animal a besoin de médicaments ? Est-il anxieux ? Nos accompagnateurs sont formés aux premiers secours.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-pink"></i> Administration médicaments</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-pink"></i> Updates WhatsApp/Photo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS (Parallax Style) -->
+    <section id="destination" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/90 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1518133524256-4915a312d49c?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 fixed-bg-effect">
+        </div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2 reveal-left">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">La Route <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-brand-purple">Trans-Européenne</span></h2>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Nous relions régulièrement la Roumanie à l'Europe de l'Ouest. Nos itinéraires sont optimisés pour réduire le temps de trajet tout en maximisant le confort.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">FR</div>
+                            <div class="h-0.5 flex-1 bg-gray-700 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-brand-lime w-1/2 animate-pulse"></div>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 font-bold">RO</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <span class="block text-xs text-gray-500 uppercase">Prochain Départ</span>
+                                <span class="font-display text-xl font-bold text-white">Vendredi 18</span>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <span class="block text-xs text-gray-500 uppercase">Durée estimée</span>
+                                <span class="font-display text-xl font-bold text-white">24h - 36h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 reveal">
+                    <!-- Stylized Map Representation -->
+                    <div class="relative w-full aspect-video glass-card rounded-3xl overflow-hidden p-1 border-2 border-white/10">
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl opacity-60 hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button class="bg-brand-lime text-brand-dark rounded-full p-4 hover:scale-110 transition-transform shadow-lg shadow-brand-lime/20">
+                                <i data-lucide="map-pin" class="w-8 h-8"></i>
+                            </button>
+                        </div>
+                        <!-- Animated dots -->
+                        <div class="absolute top-1/4 left-1/4 w-3 h-3 bg-blue-400 rounded-full animate-ping"></div>
+                        <div class="absolute bottom-1/3 right-1/3 w-3 h-3 bg-brand-purple rounded-full animate-ping" style="animation-delay: 0.5s"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US - Feature Grid -->
+    <section class="py-24 bg-brand-surface relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-brand-purple/10 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="reveal">
+                        <h2 class="font-display text-4xl font-bold mb-4">Pourquoi <br>PETvoyage ?</h2>
+                        <div class="h-1 w-20 bg-brand-pink rounded-full"></div>
+                    </div>
+                    
+                    <div class="flex gap-4 reveal" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0 border border-gray-700">
+                            <i data-lucide="thermometer" class="text-brand-lime"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-1">Température Contrôlée</h4>
+                            <p class="text-gray-400 text-sm">Système de climatisation et chauffage indépendant à l'arrière pour un confort optimal en toute saison.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 reveal" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0 border border-gray-700">
+                            <i data-lucide="video" class="text-brand-pink"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-1">Nouvelles Régulières</h4>
+                            <p class="text-gray-400 text-sm">Photos et vidéos envoyées via WhatsApp à chaque pause (toutes les 4 heures).</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 reveal" style="transition-delay: 300ms;">
+                        <div class="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0 border border-gray-700">
+                            <i data-lucide="shield-check" class="text-brand-purple"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-1">Agrément Type 2</h4>
+                            <p class="text-gray-400 text-sm">Licence officielle pour les longs trajets (>8h). Chauffeurs certifiés TAV (Transport Animaux Vivants).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative reveal">
+                    <div class="grid grid-cols-2 gap-4 h-full">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop" class="w-full h-64 object-cover rounded-3xl transform translate-y-8">
+                        <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?q=80&w=800&auto=format&fit=crop" class="w-full h-64 object-cover rounded-3xl">
+                        <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=800&auto=format&fit=crop" class="w-full h-64 object-cover rounded-3xl transform translate-y-8">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop" class="w-full h-64 object-cover rounded-3xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (Horizontal Scroll) -->
+    <section id="temoignages" class="py-24 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 flex justify-between items-end reveal">
+            <div>
+                <h2 class="font-display text-4xl font-bold">Ils voyagent avec nous</h2>
+                <p class="text-brand-lime mt-2">100% Satisfaction Garantie</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="p-3 rounded-full border border-gray-700 hover:bg-gray-800 transition-colors" id="scrollLeft"><i data-lucide="arrow-left"></i></button>
+                <button class="p-3 rounded-full border border-gray-700 hover:bg-gray-800 transition-colors" id="scrollRight"><i data-lucide="arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="flex overflow-x-auto pb-8 gap-6 px-4 md:px-20 no-scrollbar snap-x" id="testimonialContainer" style="scrollbar-width: none; -ms-overflow-style: none;">
+            <!-- Review 1 -->
+            <div class="min-w-[300px] md:min-w-[400px] glass-card p-8 rounded-3xl snap-center border-l-4 border-brand-purple">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <p class="font-bold text-white">Elena Popescu</p>
+                        <p class="text-xs text-gray-500">Trajet: Bucarest -> Paris</p>
+                    </div>
+                </div>
+                <p class="text-gray-300 italic">"Incroyable ! Mon Golden Retriever est arrivé frais et dispo. Les nouvelles par WhatsApp m'ont vraiment rassurée tout le long."</p>
+                <div class="flex text-yellow-400 mt-4 gap-1">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="min-w-[300px] md:min-w-[400px] glass-card p-8 rounded-3xl snap-center border-l-4 border-brand-lime">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <p class="font-bold text-white">Marc Dubois</p>
+                        <p class="text-xs text-gray-500">Trajet: Lyon -> Cluj</p>
+                    </div>
+                </div>
+                <p class="text-gray-300 italic">"Service très professionnel. Le camion est super équipé, on sent qu'ils aiment les animaux. Merci à l'équipe !"</p>
+                <div class="flex text-yellow-400 mt-4 gap-1">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+            </div>
+
+             <!-- Review 3 -->
+             <div class="min-w-[300px] md:min-w-[400px] glass-card p-8 rounded-3xl snap-center border-l-4 border-brand-pink">
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <p class="font-bold text-white">Ioana M.</p>
+                        <p class="text-xs text-gray-500">Trajet: Timisoara -> Bruxelles</p>
+                    </div>
+                </div>
+                <p class="text-gray-300 italic">"J'ai déménagé avec 3 chats. Tout s'est déroulé à merveille. Le chauffeur était d'une gentillesse absolue."</p>
+                <div class="flex text-yellow-400 mt-4 gap-1">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand-lime transform skew-y-3 origin-bottom-right z-0"></div>
+        <div class="absolute inset-0 bg-brand-dark/95 z-0"></div> <!-- Overlay for contrast -->
+        
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="glass-card p-8 md:p-12 rounded-[3rem] border border-brand-lime/20 shadow-2xl shadow-brand-lime/10 reveal">
+                <div class="text-center mb-10">
+                    <h2 class="font-display text-4xl font-bold mb-4">Prêt pour le départ ?</h2>
+                    <p class="text-gray-400">Demandez votre devis gratuit. Réponse sous 2h.</p>
+                </div>
+
+                <form onsubmit="envoyerWhatsApp(); return false;" class="space-y-6">
+
+  <!-- NOM -->
+  <div class="space-y-1">
+    <label for="nom" class="text-sm text-gray-500 ml-2">Votre Nom</label>
+    <input
+      id="nom"
+      type="text"
+      required
+      placeholder="Jean Dupont"
+      class="w-full bg-black/30 border border-gray-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition-all"
+    >
+  </div>
+
+  <!-- EMAIL -->
+  <div class="space-y-1">
+    <label for="email" class="text-sm text-gray-500 ml-2">Email</label>
+    <input
+      id="email"
+      type="email"
+      required
+      placeholder="jean@email.com"
+      class="w-full bg-black/30 border border-gray-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-lime focus:ring-1 focus:ring-brand-lime transition-all"
+    >
+  </div>
+
+  <!-- VILLE DE DÉPART -->
+  <div class="space-y-1">
+    <label for="depart" class="text-sm text-gray-500 ml-2">Ville de Départ</label>
+    <input
+      id="depart"
+      type="text"
+      placeholder="Ex: Paris"
+      class="w-full bg-black/30 border border-gray-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-lime transition-all"
+    >
+  </div>
+
+  <!-- VILLE D’ARRIVÉE -->
+  <div class="space-y-1">
+    <label for="arrivee" class="text-sm text-gray-500 ml-2">Ville d’Arrivée</label>
+    <input
+      id="arrivee"
+      type="text"
+      placeholder="Ex: Bucarest"
+      class="w-full bg-black/30 border border-gray-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-lime transition-all"
+    >
+  </div>
+
+  <!-- TYPE D’ANIMAL -->
+  <div class="space-y-1">
+    <label for="animal" class="text-sm text-gray-500 ml-2">Type d’animal</label>
+    <select
+      id="animal"
+      class="w-full bg-black/30 border border-gray-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-lime transition-all appearance-none cursor-pointer"
+    >
+      <option>Chien (Moyen / Grand)</option>
+      <option>Chien (Petit)</option>
+      <option>Chat</option>
+      <option>Autre (Oiseau, Rongeur...)</option>
+    </select>
+  </div>
+
+  <!-- BOUTON ENVOI -->
+  <button
+    type="submit"
+    class="w-full bg-gradient-to-r from-brand-lime to-green-500 text-brand-dark font-display font-bold text-xl py-5 rounded-2xl hover:scale-[1.02] transition-transform shadow-lg shadow-brand-lime/25 flex items-center justify-center gap-3"
+  >
+    Envoyer sur WhatsApp
+  </button>
+
+</form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i data-lucide="paw-print" class="h-8 w-8 text-brand-lime"></i>
+                        <span class="font-display font-bold text-2xl text-white">PET<span class="text-brand-purple">voyage</span></span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm">
+                        L'agence de référence pour le transport animalier entre la France et la Roumanie. Sécurité, Confort et Amour.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6">Liens Rapides</h4>
+                    <ul class="space-y-4 text-gray-500">
+                        <li><a href="#" class="hover:text-brand-lime transition-colors">À propos</a></li>
+                        <li><a href="#" class="hover:text-brand-lime transition-colors">Services</a></li>
+                        <li><a href="#" class="hover:text-brand-lime transition-colors">CGV</a></li>
+                        <li><a href="#" class="hover:text-brand-lime transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6">Contact</h4>
+                    <ul class="space-y-4 text-gray-500">
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4"></i> +1 458 343 2860</li>
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4"></i> agentiedeturism075@gmail.com</li>
+                        <li class="flex gap-4 mt-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-purple hover:text-white transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-900 pt-8 text-center text-gray-600 text-sm">
+                &copy; 2024 PETvoyage Romania. Tous droits réservés. Design Creatif.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            
+            // Navbar Glass effect intensity change on scroll
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Reveal Animation on Scroll (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+            
+            // Add a slight delay for the circle
+            setTimeout(() => {
+                cursor.style.left = (e.clientX - 16) + 'px'; // Center the 32px div
+                cursor.style.top = (e.clientY - 16) + 'px';
+            }, 50);
+        });
+
+        // Add hover effect to interactive elements for cursor
+        const interactiveElements = document.querySelectorAll('a, button, input, select');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.borderColor = '#ec4899'; // Pink on hover
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.borderColor = '#bef264'; // Back to Lime
+            });
+        });
+
+        // Horizontal Scroll Buttons for Testimonials
+        const container = document.getElementById('testimonialContainer');
+        document.getElementById('scrollLeft').addEventListener('click', () => {
+            container.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+        document.getElementById('scrollRight').addEventListener('click', () => {
+            container.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+
+    </script>
+    <a href="https://wa.me/+14583432860?text=Bonjour%20je%20veux%20envoyer%20mon%20défi"
+   target="_blank"
+   class="btn-whatsapp">
+   💬 Envoyer nous un message
+</a>
+
+<style>
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #25D366;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.45);
+}
+</style>
+</body>
+</html>
